@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { Sidebar } from '@/components/layout/Sidebar';
+import { ChevronRight } from 'lucide-react';
 
 export function LayoutPage() {
   return (
@@ -59,7 +60,7 @@ export function LayoutPage() {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold border-b pb-2">Implementation</h2>
         <pre className="p-6 rounded-lg bg-neutral-900 text-neutral-100 overflow-x-auto text-sm">
-{`import { Layout } from "@/components/layout/Layout"
+          {`import { Layout } from "@/components/layout/Layout"
 
 function App() {
   return (
@@ -74,6 +75,68 @@ function App() {
   )
 }`}
         </pre>
+
+        <details className="group border rounded-lg [&_summary::-webkit-details-marker]:hidden">
+          <summary className="flex items-center justify-between p-4 font-medium cursor-pointer bg-neutral-50 hover:bg-neutral-100 transition-colors">
+            <span>Layout Implementation</span>
+            <ChevronRight className="h-5 w-5 transition-transform group-open:rotate-90 text-neutral-500" />
+          </summary>
+          <div className="p-4 border-t bg-neutral-900 rounded-b-lg">
+            <pre className="text-neutral-100 overflow-x-auto text-sm">
+              {`import React from 'react';
+import { Sidebar } from './Sidebar';
+
+export function Layout({ children }) {
+  return (
+    <div className="flex min-h-screen bg-neutral-50 text-neutral-900 font-sans">
+      <Sidebar />
+      <main className="flex-1 overflow-y-auto h-screen bg-white shadow-sm border-l border-neutral-100">
+        <div className="max-w-4xl mx-auto p-12">
+          {children}
+        </div>
+      </main>
+    </div>
+  );
+}`}
+            </pre>
+          </div>
+        </details>
+
+        <details className="group border rounded-lg [&_summary::-webkit-details-marker]:hidden">
+          <summary className="flex items-center justify-between p-4 font-medium cursor-pointer bg-neutral-50 hover:bg-neutral-100 transition-colors">
+            <span>Sidebar Implementation</span>
+            <ChevronRight className="h-5 w-5 transition-transform group-open:rotate-90 text-neutral-500" />
+          </summary>
+          <div className="p-4 border-t bg-neutral-900 rounded-b-lg">
+            <pre className="text-neutral-100 overflow-x-auto text-sm">
+              {`import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { cn } from '@/lib/utils';
+import { LayoutDashboard, Users, BookOpen, Settings, Droplets } from 'lucide-react';
+
+const navItems = [
+  ...
+];
+
+export function Sidebar() {
+  return (
+    <div className="w-64 border-r bg-sidebar h-screen sticky top-0 flex flex-col">
+      <div className="p-6 border-b">
+        <h1 className="text-xl font-bold text-primary flex items-center gap-2">
+          Green School
+        </h1>
+        <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider font-semibold">
+          Design System
+        </p>
+      </div>
+      ...
+    </div>
+  );
+}`}
+            </pre>
+          </div>
+        </details>
       </section>
     </div>
   );
