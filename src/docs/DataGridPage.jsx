@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { DataTable } from '@/components/DataTable';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { ChevronRight } from 'lucide-react';
 
 export function DataGridPage() {
   const columnDefs = useMemo(() => [
@@ -8,10 +9,12 @@ export function DataGridPage() {
     { field: 'studentName', headerName: 'Student Name', minWidth: 200 },
     { field: 'grade', headerName: 'Grade' },
     { field: 'module', headerName: 'Module' },
-    { field: 'status', headerName: 'Status', cellRenderer: (params) => {
-      const color = params.value === 'Active' ? 'text-success' : 'text-neutral-400';
-      return <span className={`font-bold ${color}`}>{params.value}</span>;
-    }},
+    {
+      field: 'status', headerName: 'Status', cellRenderer: (params) => {
+        const color = params.value === 'Active' ? 'text-success' : 'text-neutral-400';
+        return <span className={`font-bold ${color}`}>{params.value}</span>;
+      }
+    },
     { field: 'enrollmentDate', headerName: 'Enrollment' }
   ], []);
 
@@ -38,9 +41,9 @@ export function DataGridPage() {
           <span className="text-xs bg-primary text-white px-2 py-0.5 rounded font-black uppercase tracking-tighter">Production Ready</span>
         </div>
         <div className="p-8 border rounded-2xl bg-neutral-50/30">
-          <DataTable 
-            rowData={rowData} 
-            columnDefs={columnDefs} 
+          <DataTable
+            rowData={rowData}
+            columnDefs={columnDefs}
             className="h-[400px]"
           />
         </div>
@@ -68,12 +71,12 @@ export function DataGridPage() {
             </li>
           </ul>
         </div>
-        
+
         <div className="space-y-4">
           <h2 className="text-xl font-bold text-neutral-800 border-b pb-2">Institutional Rule</h2>
           <div className="p-6 bg-primary-50/50 border border-primary-500/20 rounded-xl">
             <p className="text-sm text-primary-700 leading-relaxed italic">
-              "Do not override the core grid CSS variables directly in individual modules. 
+              "Do not override the core grid CSS variables directly in individual modules.
               Always use the GSDS DataTable component to ensure visual consistency across all data modules."
             </p>
           </div>
@@ -83,7 +86,7 @@ export function DataGridPage() {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold text-neutral-800 border-b pb-2">Code Example</h2>
         <pre className="p-6 rounded-lg bg-neutral-900 text-neutral-100 overflow-x-auto text-sm">
-{`import { DataTable } from "@/components/DataTable"
+          {`import { DataTable } from "@/components/DataTable"
 
 const columnDefs = [
   { field: 'id', headerName: 'ID' },
@@ -105,6 +108,97 @@ export function GridDemo() {
   )
 }`}
         </pre>
+
+        <details className="group border rounded-lg [&_summary::-webkit-details-marker]:hidden">
+          <summary className="flex items-center justify-between p-4 font-medium cursor-pointer bg-neutral-50 hover:bg-neutral-100 transition-colors">
+            <span>Component Implementation</span>
+            <ChevronRight className="h-5 w-5 transition-transform group-open:rotate-90 text-neutral-500" />
+          </summary>
+          <div className="p-4 border-t bg-neutral-900 rounded-b-lg">
+            <pre className="text-neutral-100 overflow-x-auto text-sm">
+              {`import React, { useMemo } from 'react';
+import { AgGridReact } from 'ag-grid-react';
+import { AllCommunityModule, ModuleRegistry, themeQuartz } from 'ag-grid-community';
+import { cn } from '@/lib/utils';
+
+// Register all Community modules
+ModuleRegistry.registerModules([AllCommunityModule]);
+
+/**
+ * GSDS DataTable Wrapper
+ * Applies institutional styling to AG Grid using the v33+ Theming API
+ */
+export function DataTable({ 
+  rowData, 
+  columnDefs, 
+  className,
+  ...props 
+}) {
+  const defaultColDef = useMemo(() => ({
+    flex: 1,
+    minWidth: 100,
+    filter: true,
+    sortable: true,
+    resizable: true,
+  }), []);
+
+  // Use the Theming API to customize the grid
+  const greenSchoolTheme = themeQuartz.withParams({
+    backgroundColor: 'var(--neutral-50)',
+    headerBackgroundColor: 'var(--neutral-100)',
+    headerTextColor: 'var(--neutral-900)',
+    dataColor: 'var(--neutral-900)',
+    oddRowBackgroundColor: 'var(--bg-card)',
+    rowHoverColor: 'var(--neutral-100)',
+    selectedRowBackgroundColor: 'color-mix(in srgb, var(--primary-500) 10%, transparent)',
+    borderColor: 'var(--neutral-200)',
+    fontFamily: "'Inter', system-ui, sans-serif",
+    fontSize: '14px',
+    headerFontWeight: '700',
+    gridSize: 8,
+  });
+
+  return (
+    <div 
+      className={cn(
+        "gsds-grid-wrapper w-full h-[400px] border rounded-lg overflow-hidden shadow-sm",
+        className
+      )}
+    >
+      <AgGridReact
+        rowData={rowData}
+        columnDefs={columnDefs}
+        defaultColDef={defaultColDef}
+        animateRows={true}
+        pagination={true}
+        paginationPageSize={10}
+        theme={greenSchoolTheme}
+        {...props}
+      />
+      
+      <style>{\`
+        .gsds-grid-wrapper .ag-header-cell-label {
+          text-transform: uppercase;
+          letter-spacing: 0.025em;
+          font-size: 11px;
+          color: var(--neutral-500);
+        }
+
+        .gsds-grid-wrapper .ag-row {
+          transition: background-color 0.1s ease;
+        }
+
+        .gsds-grid-wrapper .ag-cell {
+          display: flex;
+          align-items: center;
+        }
+      \`}</style>
+    </div>
+  );
+}`}
+            </pre>
+          </div>
+        </details>
       </section>
     </div>
   );
