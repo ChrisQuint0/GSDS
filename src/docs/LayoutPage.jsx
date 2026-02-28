@@ -39,18 +39,20 @@ export function LayoutPage() {
 
       <section className="space-y-6">
         <h2 className="text-2xl font-semibold border-b pb-2">Structure</h2>
-        <div className="p-8 border rounded-2xl bg-neutral-100/50 relative overflow-hidden h-[300px]">
-          <div className="absolute inset-0 flex">
-            <div className="w-24 border-r bg-white h-full flex flex-col p-2 space-y-2">
-              <div className="w-full h-4 bg-primary/20 rounded"></div>
-              <div className="w-full h-8 bg-primary rounded"></div>
-              <div className="w-full h-8 bg-neutral-100 rounded"></div>
-              <div className="w-full h-8 bg-neutral-100 rounded"></div>
-            </div>
-            <div className="flex-1 bg-white p-4 space-y-4">
-              <div className="w-1/3 h-6 bg-neutral-200 rounded"></div>
-              <div className="w-full h-32 bg-neutral-50 border border-dashed border-neutral-200 rounded-lg flex items-center justify-center text-xs text-neutral-400">
-                Main Content Area
+        <div className="p-4 sm:p-8 border rounded-2xl bg-neutral-100/50 relative overflow-x-auto">
+          <div className="w-[800px] h-[300px] relative">
+            <div className="absolute inset-0 flex">
+              <div className="w-24 border-r bg-white h-full flex flex-col p-2 space-y-2">
+                <div className="w-full h-4 bg-primary/20 rounded"></div>
+                <div className="w-full h-8 bg-primary rounded"></div>
+                <div className="w-full h-8 bg-neutral-100 rounded"></div>
+                <div className="w-full h-8 bg-neutral-100 rounded"></div>
+              </div>
+              <div className="flex-1 bg-white p-4 space-y-4">
+                <div className="w-1/3 h-6 bg-neutral-200 rounded"></div>
+                <div className="w-full h-32 bg-neutral-50 border border-dashed border-neutral-200 rounded-lg flex items-center justify-center text-xs text-neutral-400">
+                  Main Content Area
+                </div>
               </div>
             </div>
           </div>
