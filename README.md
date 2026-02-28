@@ -1,18 +1,66 @@
-# React + Vite
+# GSDS Minimum Viable Design System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This project implements a controlled color and component standard. The goal is a minimal enforceable foundation that ensures visual consistency across modules.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Stack:** Vite, React, Tailwind CSS, shadcn/ui, AG Grid
 
-## React Compiler
+**Deliverable:** A documentation site with live component previews, copyable code, and usage guidelines.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Objectives
 
-Note: This will impact Vite dev & build performances.
+- Eliminate inconsistent color usage
+- Define a small, enforced token system mapped to Tailwind
+- Deliver production-ready core components
+- Provide a documentation site developers can reference and copy from immediately
 
-## Expanding the ESLint configuration
+## Usage
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+This project is a React application powered by Vite. To get started locally:
+
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
+
+2. **Run the Development Server**
+   ```bash
+   npm run dev
+   ```
+
+3. **Build for Production**
+   ```bash
+   npm run build
+   ```
+
+## Design System Guidelines
+
+### Token System
+
+All components use design tokens mapped directly to the Tailwind theme (`index.css`). 
+**Direct Tailwind color classes (e.g., `bg-green-600`, `text-gray-500`) are prohibited.** All styles must reference semantic tokens only.
+
+**Color tokens defined:**
+- **Primary**: `primary-500`, `primary-600`, `primary-700`
+- **Neutral**: `neutral-50`, `neutral-100`, `neutral-200`, `neutral-500`, `neutral-900`
+- **Semantic**: `success`, `warning`, `destructive`, `info`
+- **Additional**: `border-default`, `border-radius-base`, `bg-card`, `text-muted`
+
+### Core Components Included
+
+- **Button** — variants: `primary`, `secondary`, `outline`, `destructive`
+- **Input** — states: `default`, `error`
+- **Alert** — variants: `success`, `error`, `warning`, `info`
+- **Card** — variants: `standard`, `with header`
+- **DataTable Wrapper** (AG Grid)
+- **Sidebar Layout Component**
+
+### Color Usage Rules
+
+The institutional palette follows a strict usage ratio to maintain a professional academic appearance:
+- **60%** neutral backgrounds (`neutral-50`, `neutral-100`)
+- **30%** white card surfaces
+- **10%** school green (primary tokens)
+
+Green appears **only** in primary buttons, active sidebar items, focus rings, selected row highlights, and status badges. Green must **never** appear in body text, paragraph content, or large background areas.
